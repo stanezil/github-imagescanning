@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 env:
   AQUA_USER: ${{ secrets.AQUA_USER }} # Aqua Registry
-  AQUA_PASS: ${{ secrets.AQUA_PASS }} # Aqua Registry
+  AQUA_PASSWORD: ${{ secrets.AQUA_PASSWORD }} # Aqua Registry
   AQUA_TOKEN: ${{ secrets.AQUA_TOKEN }} # Aqua Scanner authentication
   AQUA_HOST: ${{ secrets.AQUA_HOST }} # Aqua Scanner authentication
   
