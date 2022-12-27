@@ -10,6 +10,8 @@ env:
   AQUA_PASSWORD: ${{ secrets.AQUA_PASSWORD }} # Aqua Registry
   AQUA_TOKEN: ${{ secrets.AQUA_TOKEN }} # Aqua Scanner authentication
   AQUA_HOST: ${{ secrets.AQUA_HOST }} # Aqua Scanner authentication
+  BUILD_NUMBER: ${{ github.run_id }}
+  BUILD_NAME: ${{ GITHUB_REPOSITORY }}
   
 jobs:
   build:
@@ -17,10 +19,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image:$(date +%s)
+      run: docker build . --file Dockerfile --tag my-image:BUILD_NUMBER
     - name: Aqua Scanner
       run: |
         docker login registry.aquasec.com -u $AQUA_USER -p $AQUA_PASSWORD
         docker pull registry.aquasec.com/scanner:2022.4
-        docker run -v /var/run/docker.sock:/var/run/docker.sock registry.aquasec.com/scanner:2022.4 scan -H http://aqua-server:8080 --host $AQUA_HOST --token $AQUA_TOKEN --show-negligible --local my-image:$(date +%s) --htmlfile /result/out.html --jsonfile /result/out.json > /dev/null
+        docker run -v /var/run/docker.sock:/var/run/docker.sock -e BUILD_NUMBER=$BUILD_NUMBER -e BUILD_JOB_NAME=$BUILD_NAME registry.aquasec.com/scanner:2022.4 scan --host $AQUA_HOST --token $AQUA_TOKEN --show-negligible --local my-image:BUILD_NUMBER --htmlfile /result/out.html --jsonfile /result/out.json > /dev/null
         
