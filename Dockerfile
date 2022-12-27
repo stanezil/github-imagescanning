@@ -1,2 +1,2 @@
-FROM nginx:1.7.1
+FROM nginx:latest
 COPY ./public /usr/share/nginx/html
