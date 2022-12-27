@@ -11,7 +11,7 @@ env:
   AQUA_TOKEN: ${{ secrets.AQUA_TOKEN }} # Aqua Scanner authentication
   AQUA_HOST: ${{ secrets.AQUA_HOST }} # Aqua Scanner authentication
   BUILD_NUMBER: ${{ github.run_id }}
-  BUILD_NAME: ${{ GITHUB_REPOSITORY }}
+  BUILD_NAME: ${{ github.repository }}
   
 jobs:
   build:
