@@ -24,7 +24,7 @@ jobs:
       run: |
         docker login registry.aquasec.com -u $AQUA_USER -p $AQUA_PASSWORD
         docker pull registry.aquasec.com/scanner:2022.4
-        docker run -v /var/run/docker.sock:/var/run/docker.sock -e BUILD_NUMBER=$BUILD_NUMBER -e BUILD_JOB_NAME=$BUILD_NAME registry.aquasec.com/scanner:2022.4 scan --host $AQUA_HOST --token $AQUA_TOKEN --show-negligible --local my-image:$BUILD_NUMBER --htmlfile /result/out.html --jsonfile /result/out.json > /dev/null
+        docker run -v /var/run/docker.sock:/var/run/docker.sock -e BUILD_NUMBER=$BUILD_NUMBER -e BUILD_JOB_NAME=$BUILD_NAME registry.aquasec.com/scanner:2022.4 scan --host $AQUA_HOST --token $AQUA_TOKEN --show-negligible --local my-image:$BUILD_NUMBER --htmlfile out.html --jsonfile out.json > /dev/null
     - uses: actions/upload-artifact@v3
       with:
         name: aqua-artifact
