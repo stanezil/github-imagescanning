@@ -16,7 +16,7 @@ env:
   BUILD_NAME: ${{ github.repository }}
   GITHUB_WORKSPACE: ${{ github.workspace }}
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
-  IMAGE_NAME: stanhoe/githubtest:latest
+  IMAGE_NAME: stanhoe/github-imagescanning:${{ github.sha }}
   
 jobs:
   aqua:
@@ -57,7 +57,7 @@ jobs:
       run: |
         docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
         docker push $IMAGE_NAME
-    - name: Aqua Release Artifact 
+    - name: Aqua Release Artifact & SBOM 
       run: |
         export BILLY_SERVER=https://billy.asia-1.codesec.aquasec.com
         curl -sLo install.sh download.codesec.aquasec.com/billy/install.sh
